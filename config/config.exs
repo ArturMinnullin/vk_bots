@@ -22,6 +22,15 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :ueberauth, Ueberauth,
+  providers: [
+    vk: { Ueberauth.Strategy.VK, [] }
+  ]
+
+config :ueberauth, Ueberauth.Strategy.VK.OAuth,
+  client_id: "5744471",
+  client_secret: "XRBk5uq4x821Jxnv4XFw"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

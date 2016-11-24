@@ -16,7 +16,7 @@ defmodule VkBots.Mixfile do
   def application do
     [mod: {VkBots, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth]]
+                    :phoenix_ecto, :postgrex, :ueberauth, :ueberauth_vk]]
   end
 
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
@@ -31,6 +31,7 @@ defmodule VkBots.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:ueberauth, "~> 0.4"},
+     {:ueberauth_vk, "~> 0.2"},
      {:cowboy, "~> 1.0"}]
   end
 
