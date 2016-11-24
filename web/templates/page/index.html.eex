@@ -1,4 +1,8 @@
-<h1>Welcome</h1>
-<a class="btn btn-primary btn-lg" href="/auth/vk">
-  Sign in with VK
-</a>
+<%= if @current_user do %>
+  <h1>Welcome</h1>
+  <%= @current_user.name %>
+<% else %>
+  <a class="btn btn-primary btn-lg" href="/auth/vk">
+    Sign in with VK
+  </a>
+<% end %>

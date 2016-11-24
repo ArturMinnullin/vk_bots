@@ -2,6 +2,8 @@ defmodule VkBots.AuthController do
   use VkBots.Web, :controller
   plug Ueberauth
 
+  alias VkBots.FindOrCreateUserFromAuth
+
   def request(conn, params) do
     render conn
   end

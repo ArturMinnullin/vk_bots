@@ -24,7 +24,7 @@ config :logger, :console,
 
 config :ueberauth, Ueberauth,
   providers: [
-    vk: { Ueberauth.Strategy.VK, [] }
+    vk: { Ueberauth.Strategy.VK, [[default_scope: "email,image"]] }
   ]
 
 config :ueberauth, Ueberauth.Strategy.VK.OAuth,
