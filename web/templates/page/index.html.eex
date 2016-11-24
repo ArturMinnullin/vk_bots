@@ -1,6 +1,13 @@
 <%= if @current_user do %>
-  <h1>Welcome</h1>
-  <%= @current_user.name %>
+  <h1>Welcome <%= @current_user.name %></h1>
+  <%= for group <- @groups do %>
+    <p>
+      <%= Map.get(group, "name") %>
+      <a href="#" data-id='<%= Map.get(group, "gid") %>'>
+        Add
+      </a>
+    </p>
+  <% end %>
 <% else %>
   <a class="btn btn-primary btn-lg" href="/auth/vk">
     Sign in with VK
