@@ -24,13 +24,11 @@ config :logger, :console,
 
 config :ueberauth, Ueberauth,
   providers: [
-    vk: { Ueberauth.Strategy.VK, [[default_scope: "email,image"]] }
+    vk: { Ueberauth.Strategy.VK, [default_scope: "email", profile_fields: "photo_200"] }
   ]
 
 config :ueberauth, Ueberauth.Strategy.VK.OAuth,
   client_id: "5744471",
-  client_secret: "XRBk5uq4x821Jxnv4XFw"
+  client_secret: "qazqaz"
 
-# Import environment specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
