@@ -17,6 +17,11 @@ defmodule VkBots.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/api", VkBots do
+    pipe_through :api
+
     resources "/groups", GroupsController, only: [:create, :delete]
   end
 

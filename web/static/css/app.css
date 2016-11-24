@@ -1,1 +1,11 @@
-/* This file is for your main application css. */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+// .container {
+//   height: 840px;
+//   background-color: #5a5a5a;
+//   background-image: url("/images/bg-bricks.gif");
+//   background-repeat: repeat-x;
+// }

@@ -1,15 +1,21 @@
 defmodule VkBots.PageController do
   use VkBots.Web, :controller
 
-  def index(conn, _params) do
-    user = get_session(conn, :current_user)
+  alias VkBots.Repo
+  alias VkBots.User
 
-    response = HTTPotion.get "https://api.vk.com/method/groups.get",
-      query: %{access_token: user.access_token, extended: 1}
-    list = response.body
-      |> Poison.decode!
-      |> Map.get("response")
-    [count | groups] = list
+  def index(conn, _params) do
+    session = get_session(conn, :current_user)
+
+    if session do
+      user = Repo.get(User, session.id)
+      response = HTTPotion.get "https://api.vk.com/method/groups.get",
+        query: %{access_token: user.access_token, extended: 1}
+      list = response.body
+        |> Poison.decode!
+        |> Map.get("response")
+      [count | groups] = list
+    end
 
     render conn, "index.html", current_user: user, groups: groups
   end

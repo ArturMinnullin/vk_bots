@@ -2,9 +2,12 @@
   <h1>Welcome <%= @current_user.name %></h1>
   <%= for group <- @groups do %>
     <p>
-      <%= Map.get(group, "name") %>
-      <a href="#" data-id='<%= Map.get(group, "gid") %>' onclick="addGroup(event)">
+      <%= group["name"] %>
+      <a href="#" class='addedLink <%= added_link_style(@current_user, group["gid"]) %>' data-id='<%= group["gid"] %>'>
         Add
+      </a>
+      <a href="#" class='removedLink <%= removed_link_style(@current_user, group["gid"]) %>' data-id='<%= group["gid"] %>'>
+        Remove
       </a>
     </p>
   <% end %>

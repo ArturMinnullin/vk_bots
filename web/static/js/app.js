@@ -12,13 +12,33 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
-import "whatwg-fetch"
+import UJS from "phoenix_ujs";
+import $ from "jquery";
 
-function addGroup(event) {
-  fetch("/groups", {
-    method: "POST",
-    body: { gid: event.target.getAttribute("data-id") }
-  })
-}
+$(".addedLink").click(function(event) {
+  event.preventDefault();
+  var $element = $(event.target);
 
-window.addGroup = addGroup
+  UJS.xhr("/api/groups", "POST", {
+    type: "json",
+    data: { gid: $element.data("id") },
+    success: function(xhr) {
+      $element.addClass("hidden");
+      $element.parent().find(".removedLink").removeClass("hidden");
+    }
+  });
+});
+
+$(".removedLink").click(function(event) {
+  event.preventDefault();
+  var $element = $(event.target);
+  var path = "/api/groups/" + $element.data("id");
+
+  UJS.xhr(path, "DELETE", {
+    type: "json",
+    success: function(xhr) {
+      $element.addClass("hidden");
+      $element.parent().find(".addedLink").removeClass("hidden");
+    }
+  });
+});
