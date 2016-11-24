@@ -11,7 +11,6 @@ defmodule VkBots.PageController do
       |> Map.get("response")
     [count | groups] = list
 
-    require IEx; IEx.pry
     render conn, "index.html", current_user: user, groups: groups
   end
 end
