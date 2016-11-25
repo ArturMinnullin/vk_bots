@@ -21,7 +21,7 @@ defmodule VkBots.GroupsController do
   def delete(conn, params) do
     conn = fetch_session(conn)
     session = get_session(conn, :current_user)
-    user = Repo.get(User, session.id)
+    user = Repo.get!(User, session.id)
     array = List.delete(user.active_groups, params["id"])
 
     { status, updated_user } = user |> Ecto.Changeset.change(%{active_groups: array}) |> Repo.update
