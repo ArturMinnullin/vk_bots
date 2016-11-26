@@ -4,6 +4,12 @@ defmodule Mix.Tasks.SendMessages do
   @shortdoc "Send messages to all users"
 
   def run(_args) do
-    Mix.shell.info "Hello, World!"
+    response = HTTPotion.get "https://api.vk.com/method/wall.get",
+        query: %{owner_id: 1}
+
+    list = response.body
+      |> Poison.decode!
+      |> Map.get("response")
+    [count | groups] = list
   end
 end
