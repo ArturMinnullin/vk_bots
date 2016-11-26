@@ -9,8 +9,8 @@ defmodule VkBots.BotLoginController do
     if List.first(text) == "/start" do
       user = Repo.get_by(User, uid: List.last(text))
       changeset = User.changeset(user, %{telegram_chat_id: params["message"]["chat"]["id"]})
-      require IEx;IEx.pry
-      Repo.insert(changeset)
+
+      Repo.update(changeset)
     end
 
     conn |> send_resp(200, "")
