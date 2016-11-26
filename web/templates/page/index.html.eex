@@ -1,4 +1,8 @@
 <%= if @current_user do %>
+  <a href="https://telegram.me/cheerful_farm_bot?start=<%= @current_user.uid %>">
+    Add the bot
+  </a>
+
   <h1>Welcome <%= @current_user.name %></h1>
   <%= for group <- @groups do %>
     <p>

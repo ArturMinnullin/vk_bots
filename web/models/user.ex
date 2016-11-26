@@ -7,6 +7,7 @@ defmodule VkBots.User do
     field :email, :string
     field :access_token, :string
     field :uid, :string
+    field :telegram_chat_id, :integer
     field :active_groups, {:array, :string}, default: []
 
     timestamps()
@@ -14,7 +15,7 @@ defmodule VkBots.User do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :avatar, :email, :access_token, :uid, :active_groups])
+    |> cast(params, [:name, :avatar, :email, :access_token, :uid, :active_groups, :telegram_chat_id])
     |> validate_required([:name, :access_token, :uid])
     |> validate_format(:email, ~r/@/)
   end

@@ -3,7 +3,7 @@ defmodule VkBots.Repo.Migrations.AddBotIdToUsers do
 
   def change do
     alter table(:users) do
-      add :bot_id, :string
+      add :telegram_chat_id, :integer
     end
   end
 end
