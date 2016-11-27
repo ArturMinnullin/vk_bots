@@ -15,30 +15,18 @@ import "phoenix_html"
 import UJS from "phoenix_ujs";
 import $ from "jquery";
 
-$(".addedLink").click(function(event) {
+$(".switcher").on("change", function(event) {
   event.preventDefault();
-  var $element = $(event.target);
 
-  UJS.xhr("/api/groups", "POST", {
-    type: "json",
-    data: { gid: $element.data("id") },
-    success: function(xhr) {
-      $element.addClass("hidden");
-      $element.parent().find(".removedLink").removeClass("hidden");
-    }
-  });
-});
-
-$(".removedLink").click(function(event) {
-  event.preventDefault();
-  var $element = $(event.target);
-  var path = "/api/groups/" + $element.data("id");
-
-  UJS.xhr(path, "DELETE", {
-    type: "json",
-    success: function(xhr) {
-      $element.addClass("hidden");
-      $element.parent().find(".addedLink").removeClass("hidden");
-    }
-  });
+  var $element = $(".switcher");
+  if($element.prop("checked")) {
+    UJS.xhr("/api/groups", "POST", {
+      type: "json",
+      data: { gid: $element.data("id") },
+    });
+  } else {
+    UJS.xhr("/api/groups/" + $element.data("id"), "DELETE", {
+      type: "json"
+    });
+  }
 });
