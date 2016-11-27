@@ -28,7 +28,7 @@ config :ueberauth, Ueberauth,
   ]
 
 config :ueberauth, Ueberauth.Strategy.VK.OAuth,
-  client_id: "5744471",
-  client_secret: "qazqaz"
+  client_id: System.get_env("VK_CLIENT_ID"),
+  client_secret: System.get_env("VK_CLIENT_SECRET")
 
 import_config "#{Mix.env}.exs"

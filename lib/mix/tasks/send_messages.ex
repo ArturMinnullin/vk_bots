@@ -25,7 +25,7 @@ defmodule Mix.Tasks.SendMessages do
 
       text = List.first(groups)["text"]
 
-      HTTPotion.get "https://api.telegram.org/bot188180966:AAGJvjVZadL9LGIVA_eLXoS06OP6VP1lhzA/sendMessage",
+      HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
         query: %{chat_id: user.telegram_chat_id, text: text}
     end
   end

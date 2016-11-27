@@ -23,7 +23,7 @@ defmodule VkBots.Router do
     pipe_through :api
 
     resources "/groups", GroupsController, only: [:create, :delete]
-    post "/188180966", BotLoginController, :request
+    post "/#{System.get_env("TELEGRAM_SLICED_KEY")}", BotLoginController, :request
   end
 
   scope "/auth", VkBots do
