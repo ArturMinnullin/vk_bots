@@ -1,22 +1,38 @@
 <%= if @current_user do %>
-  <a href="https://telegram.me/cheerful_farm_bot?start=<%= @current_user.uid %>">
-    Add the bot
-  </a>
-
-  <h1>Welcome <%= @current_user.name %></h1>
-  <%= for group <- @groups do %>
-    <p>
-      <%= group["name"] %>
-      <a href="#" class='addedLink <%= added_link_style(@current_user, group["gid"]) %>' data-id='<%= group["gid"] %>'>
-        Add
+  <div class="left-side">
+    <div class="add-bot">
+      <h5 class="add-bot__name"><%= @current_user.name %></h5>
+      <a href="https://telegram.me/cheerful_farm_bot?start=<%= @current_user.uid %>" class="add-bot__link">
+        Add the bot
       </a>
-      <a href="#" class='removedLink <%= removed_link_style(@current_user, group["gid"]) %>' data-id='<%= group["gid"] %>'>
-        Remove
-      </a>
-    </p>
-  <% end %>
+    </div>
+  </div>
+  <div class="right-side">
+    <h6 class="title">Ваши сообщества</h6>
+    <ul class="groups-list">
+      <%= for group <- @groups do %>
+        <li class="groups-list-item">
+          <%= group["name"] %>
+            <svg width="205" height="105" viewBox="0 0 205 105" xmlns="http://www.w3.org/2000/svg" class="switcher">
+              <g>
+                <title>background</title>
+                <rect fill="none" id="canvas_background" height="107" width="207" y="-1" x="-1"/>
+              </g>
+             <g>
+                <title>Layer 1</title>
+                <line y2="52" x2="152" y1="52" x1="52" stroke-miterlimit="10" stroke-linecap="round" stroke-width="100" stroke="#BBBABB" fill="none" id="base"/>
+                <line y2="52" x2="52" y1="52" x1="52" stroke-miterlimit="10" stroke-linecap="round" stroke-width="60" stroke="#224687" fill="none" id="lineSelector"/>
+                <circle opacity="0" fill="#EEE" r="40" cy="52" cx="52" id="hitL"/>
+                <circle opacity="0" fill="#EEE" r="40" cy="187" cx="-75" id="hitR"/>
+                <line y2="300" x2="150" y1="300" x1="50" stroke-miterlimit="10" stroke-linecap="round" stroke-width="100" stroke="transparent" fill="none" id="hitArea"/>
+              </g>
+            </svg>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% else %>
-  <a class="btn btn-primary btn-lg" href="/auth/vk">
-    Sign in with VK
+  <a class="btn login-link" href="/auth/vk">
+    Вход
   </a>
 <% end %>
