@@ -18,7 +18,8 @@ import $ from "jquery";
 $(".switcher").on("change", function(event) {
   event.preventDefault();
 
-  var $element = $(".switcher");
+  var $element = $(event.target);
+
   if($element.prop("checked")) {
     UJS.xhr("/api/groups", "POST", {
       type: "json",

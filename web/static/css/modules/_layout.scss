@@ -6,14 +6,27 @@
 
 .left-column {
   display: inline-block;
-  float: left;
+  width: 250px;
 
-  width: 20%;
+  margin-right: 4%;
+
+  @media (max-width: 850px) {
+    display: block;
+    width: 100%;
+
+    margin-top: 0;
+  }
 }
 
 .right-column {
   display: inline-block;
   width: 65%;
 
-  margin-left: 5%;
+  margin-top: 30px;
+
+  @media (max-width: 850px) {
+    display: block;
+    width: 90%;
+    margin: 5% auto;
+  }
 }

@@ -1,22 +1,24 @@
 .add-bot {
-  // position: fixed;
-  // left: 0;
-  // top: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
 
-  margin: 10px;
   padding: 30px;
-
-  display: inline-block;
+  margin: 40px 0 0 30px;
 
   border: 1px solid $border-color;
+  text-align: center;
+
+  @media (max-width: 850px) {
+    position: relative;
+    margin: 0;
+  }
 
   &__name {
     margin: 0 0 30px 0;
     text-transform: uppercase;
     letter-spacing: 1px;
     word-spacing: 1.5px;
-
-    text-align: center;
   }
 
   &__link {
