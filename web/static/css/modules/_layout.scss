@@ -1,0 +1,19 @@
+.container {
+  max-width: 720px;
+  width: auto;
+  margin: 0 auto;
+}
+
+.left-column {
+  display: inline-block;
+  float: left;
+
+  width: 20%;
+}
+
+.right-column {
+  display: inline-block;
+  width: 65%;
+
+  margin-left: 5%;
+}

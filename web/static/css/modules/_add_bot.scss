@@ -1,0 +1,38 @@
+.add-bot {
+  // position: fixed;
+  // left: 0;
+  // top: 0;
+
+  margin: 10px;
+  padding: 30px;
+
+  display: inline-block;
+
+  border: 1px solid $border-color;
+
+  &__name {
+    margin: 0 0 30px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-spacing: 1.5px;
+
+    text-align: center;
+  }
+
+  &__link {
+    border: 2px solid $text-color;
+
+    padding: 10px 20px;
+
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  &__link:hover {
+    background-color: $vk-color;
+    color: $white;
+    border-color: $vk-color;
+
+    cursor: pointer;
+  }
+}
