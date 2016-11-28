@@ -21,29 +21,28 @@ defmodule Mix.Tasks.SendMessages do
 
     for group <- user.active_groups do
       response = HTTPotion.get "https://api.vk.com/method/wall.get",
-        query: %{owner_id: -String.to_integer(group)}
+        query: %{owner_id: -String.to_integer(group), access_token: user.access_token}
 
       list = response.body
         |> Poison.decode!
         |> Map.get("response")
       [count | objects] = list
 
-      # if is_nil(user.last_checked_at) do
-      #   text = List.first(objects)["text"]
+      if is_nil(user.last_checked_at) do
+        text = List.first(objects)["text"]
 
-      #   HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
-      #         query: %{chat_id: user.telegram_chat_id, text: text}
-      # else
-      #   for object <- objects do
-      #     if object["date"] > user.last_checked_at do
-      #       HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
-      #         query: %{chat_id: user.telegram_chat_id, text: object["text"]}
-      #     end
-      #   end
-      # end
+        HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
+              query: %{chat_id: user.telegram_chat_id, text: text}
+      else
+        for object <- objects do
+          if object["date"] > user.last_checked_at do
+            HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
+              query: %{chat_id: user.telegram_chat_id, text: object["text"]}
+          end
+        end
+      end
     end
 
-    require IEx;IEx.pry
-    # user |> Ecto.Changeset.change(%{last_checked_at: time}) |> Repo.update
+    user |> Ecto.Changeset.change(%{last_checked_at: time}) |> VkBots.Repo.update
   end
 end
