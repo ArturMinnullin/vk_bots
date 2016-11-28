@@ -27,4 +27,12 @@
   <a class="btn login-link" href="/auth/vk">
     Вход
   </a>
+  <footer>
+    <div class="made-by">
+      Made by
+      <a href="http://arturmin.com">
+        Artur Minnullin
+      </a>
+    </div>
+  </footer>
 <% end %>
