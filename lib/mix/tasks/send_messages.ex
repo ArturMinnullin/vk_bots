@@ -21,9 +21,8 @@ defmodule Mix.Tasks.SendMessages do
       list = response.body
         |> Poison.decode!
         |> Map.get("response")
-      [count | groups] = list
-
-      text = List.first(groups)["text"]
+      [count | objects] = list
+      text = List.first(objects)["text"]
 
       HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
         query: %{chat_id: user.telegram_chat_id, text: text}
