@@ -56,6 +56,6 @@ defmodule Mix.Tasks.SendMessages do
   end
 
   defp format_message(group, text) do
-    "<a href='vk.com/#{group["screen_name"]}'>#{group["name"]}</a>: #{String.replace(text, "<br>", "\n")}"
+    "<code>#{group["name"]}</code><a href='vk.com/#{group["screen_name"]}'> (link)</a>\n#{String.replace(text, "<br>", "\n")}"
   end
 end
