@@ -21,6 +21,6 @@ defmodule VkBots.PageController do
   end
 
   def letsencrypt(conn, params) do
-    text conn, params["id"]
+    text conn, "2WCQ4pXA7uKS89Va-jYW4sexbv3knl9OqGxseMhISBE.ogUgWHtSkEL5bnPogw92J3LNIU-e3Tb0tiDxhI8jZYs"
   end
 end
