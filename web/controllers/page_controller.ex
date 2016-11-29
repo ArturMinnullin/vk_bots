@@ -14,9 +14,13 @@ defmodule VkBots.PageController do
       list = response.body
         |> Poison.decode!
         |> Map.get("response")
-      [count | groups] = list
+      [_count | groups] = list
     end
 
     render conn, "index.html", current_user: user, groups: groups
+  end
+
+  def letsencrypt(conn, params) do
+    text conn, params["id"]
   end
 end

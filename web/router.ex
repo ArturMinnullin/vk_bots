@@ -17,6 +17,7 @@ defmodule VkBots.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/.well-known/acme-challenge/:id", PageController, :letsencrypt
   end
 
   scope "/api", VkBots do
