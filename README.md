@@ -1,20 +1,24 @@
-# VkBots
+# VK Broadcaster
 
-To start your Phoenix app:
+Information about ruby and rails versions.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+- PostgreSQL 9.5.4
+`brew install postgres`
+- Elixir 1.3.4
+`kiex install elixir-1.3.4`
+- Phoenix 1.2.1
 
+Quick start:
+* Install dependencies with `mix deps.get`
+* Create and migrate your database with `mix ecto.create && mix ecto.migrate`
+* Install Node.js dependencies with `npm install`
+* Start Phoenix endpoint with `mix phoenix.server`
+
+ENV variables:
+  ```bash
+  VK_CLIENT_ID=vkontakte_client_id
+  VK_CLIENT_SECRET=vkontakte_client_secret
+  TELEGRAM_KEY=telegram_key
+  TELEGRAM_BOT=telegram_bot_name
+  ```
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
