@@ -12,13 +12,11 @@ defmodule Mix.Tasks.SendMessages do
 
     HTTPotion.start
 
-    users = VkBots.Repo.all(VkBots.User)
-    for user <- users, do: get_groups(user)
+    for user <- VkBots.Repo.all(VkBots.User), do: get_groups(user)
+    VkBots.Repo.update_all(VkBots.User, set: [last_checked_at: Timex.to_unix(Timex.now)])
   end
 
   defp get_groups(user) do
-    time = Timex.to_unix Timex.now
-
     for group <- user.active_groups do
       response = HTTPotion.get "https://api.vk.com/method/wall.get",
         query: %{owner_id: -String.to_integer(group), access_token: user.access_token, extended: 1}
@@ -27,27 +25,38 @@ defmodule Mix.Tasks.SendMessages do
         |> Poison.decode!
         |> Map.get("response")
       group = List.first(list["groups"])
-      [count | objects] = list["wall"]
+      [_count | objects] = list["wall"]
 
       if is_nil(user.last_checked_at) do
-        text = List.first(objects)["text"]
-
-        HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
-              query: %{chat_id: user.telegram_chat_id, text: format_message(group, text), parse_mode: "Markdown"}
+        send_message(user, group, List.first(objects))
       else
-        for object <- objects do
-          if object["date"] > user.last_checked_at do
-            HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
-              query: %{chat_id: user.telegram_chat_id, text: format_message(group, object["text"]), parse_mode: "Markdown"}
-          end
-        end
+        send_message(user, group, objects)
       end
     end
+  end
 
-    user |> Ecto.Changeset.change(%{last_checked_at: time}) |> VkBots.Repo.update
+  defp send_message(user, group, object) when is_list(object) do
+    for single_object <- object do
+      if single_object["date"] > user.last_checked_at, do: send_message(user, group, single_object)
+    end
+  end
+
+  defp send_message(user, group, object) do
+    text = object["text"]
+    require IEx;IEx.pry
+    HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
+      query: %{chat_id: user.telegram_chat_id, text: format_message(group, text), parse_mode: "HTML"}
+
+    object["attachments"]
+      |> Enum.filter_map(fn(x) -> Map.has_key?(x, "photo") end, &send_image(&1, user))
+  end
+
+  defp send_image(%{"photo" => %{"src_big" => url}} = _image, user) do
+    HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendPhoto",
+      query: %{chat_id: user.telegram_chat_id, photo: url}
   end
 
   defp format_message(group, text) do
-    "[#{group["name"]}](vk.com/#{group["screen_name"]}): #{String.replace(text, "<br>", "\n")}"
+    "<a href='vk.com/#{group["screen_name"]}'>#{group["name"]}</a>: #{String.replace(text, "<br>", "\n")}"
   end
 end
