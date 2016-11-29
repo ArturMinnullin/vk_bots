@@ -43,7 +43,6 @@ defmodule Mix.Tasks.SendMessages do
 
   defp send_message(user, group, object) do
     text = object["text"]
-    require IEx;IEx.pry
     HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
       query: %{chat_id: user.telegram_chat_id, text: format_message(group, text), parse_mode: "HTML"}
 
