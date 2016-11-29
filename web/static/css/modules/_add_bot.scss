@@ -31,6 +31,8 @@
   }
 
   &__link:hover {
+    transition: all 0.4s;
+
     background-color: $vk-color;
     color: $white;
     border-color: $vk-color;
