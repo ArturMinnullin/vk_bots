@@ -24,7 +24,7 @@ config :logger, :console,
 
 config :ueberauth, Ueberauth,
   providers: [
-    vk: { Ueberauth.Strategy.VK, [default_scope: "email,offline", profile_fields: "photo_200"] }
+    vk: { Ueberauth.Strategy.VK, [default_scope: "email,offline,groups", profile_fields: "photo_200"] }
   ]
 
 config :ueberauth, Ueberauth.Strategy.VK.OAuth,
