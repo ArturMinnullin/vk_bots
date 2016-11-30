@@ -2,7 +2,7 @@
   <div class="left-column">
     <div class="add-bot">
       <h5 class="add-bot__name"><%= @current_user.name %></h5>
-      <a href="https://telegram.me/<%= System.get_env("TELEGRAM_BOT") %>?start=<%= @current_user.uid %>" class="add-bot__link">
+      <a href="https://telegram.me/<%= System.get_env("TELEGRAM_BOT") %>?start=<%= @current_user.uid %>" target="_blank" class="add-bot__link">
         Добавить бота
       </a>
     </div>
