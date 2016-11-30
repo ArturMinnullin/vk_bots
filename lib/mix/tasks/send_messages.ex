@@ -46,8 +46,10 @@ defmodule Mix.Tasks.SendMessages do
     HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
       query: %{chat_id: user.telegram_chat_id, text: format_message(group, text), parse_mode: "HTML"}
 
-    object["attachments"]
-      |> Enum.filter_map(fn(x) -> Map.has_key?(x, "photo") end, &send_image(&1, user))
+    unless is_nil(object["attachments"]) do
+      object["attachments"]
+        |> Enum.filter_map(fn(x) -> Map.has_key?(x, "photo") end, &send_image(&1, user))
+    end
   end
 
   defp send_image(%{"photo" => %{"src_big" => url}} = _image, user) do
