@@ -49,12 +49,20 @@ defmodule Mix.Tasks.SendMessages do
     unless is_nil(object["attachments"]) do
       object["attachments"]
         |> Enum.filter_map(fn(x) -> Map.has_key?(x, "photo") end, &send_image(&1, user))
+
+      object["attachments"]
+        |> Enum.filter_map(fn(x) -> Map.has_key?(x, "video") end, &send_video(&1, user))
     end
   end
 
   defp send_image(%{"photo" => %{"src_big" => url}} = _image, user) do
     HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendPhoto",
       query: %{chat_id: user.telegram_chat_id, photo: url}
+  end
+
+  defp send_video(%{"video" => %{"owner_id" => owner, "vid" => vid, "title" => title}} = _video, user) do
+    HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
+      query: %{chat_id: user.telegram_chat_id, text: "<a href='https://vk.com/video#{owner}_#{vid}'>#{title}</a>", parse_mode: "HTML"}
   end
 
   defp format_message(group, text) do
