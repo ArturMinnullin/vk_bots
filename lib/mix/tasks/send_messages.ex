@@ -13,7 +13,6 @@ defmodule Mix.Tasks.SendMessages do
     HTTPotion.start
 
     for user <- VkBots.Repo.all(VkBots.User), do: get_groups(user)
-    VkBots.Repo.update_all(VkBots.User, set: [last_checked_at: Timex.to_unix(Timex.now)])
   end
 
   defp get_groups(user) do
@@ -36,6 +35,8 @@ defmodule Mix.Tasks.SendMessages do
         end
       end
     end
+
+    VkBots.User.changeset(user, %{last_checked_at: Timex.to_unix(Timex.now)}) |> VkBots.Repo.update
   end
 
   defp send_message(user, group, object) when is_list(object) do
