@@ -8,9 +8,13 @@ defmodule VkBots.BotLoginController do
 
     if List.first(text) == "/start" do
       user = Repo.get_by(User, uid: List.last(text))
-      changeset = User.changeset(user, %{telegram_chat_id: params["message"]["chat"]["id"]})
+      unless is_nil(user) do
+        changeset = User.changeset(user, %{telegram_chat_id: params["message"]["chat"]["id"]})
+        Repo.update(changeset)
 
-      Repo.update(changeset)
+        HTTPotion.get "https://api.telegram.org/bot#{System.get_env("TELEGRAM_KEY")}/sendMessage",
+          query: %{chat_id: params["message"]["chat"]["id"], text: "Привет! Скоро сообщения начнут приходить :)", parse_mode: "HTML"}
+      end
     end
 
     conn |> send_resp(200, "")
