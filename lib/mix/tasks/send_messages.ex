@@ -24,13 +24,16 @@ defmodule Mix.Tasks.SendMessages do
       list = response.body
         |> Poison.decode!
         |> Map.get("response")
-      group = List.first(list["groups"])
-      [_count | objects] = list["wall"]
 
-      if is_nil(user.last_checked_at) do
-        send_message(user, group, List.first(objects))
-      else
-        send_message(user, group, objects)
+      unless is_nil(list["groups"]) do
+        group = List.first(list["groups"])
+        [_count | objects] = list["wall"]
+
+        if is_nil(user.last_checked_at) do
+          send_message(user, group, List.first(objects))
+        else
+          send_message(user, group, objects)
+        end
       end
     end
   end
