@@ -14,7 +14,6 @@ config :vk_bots, VkBots.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "TTYUlOKa2aIEXLzDnJICBPsatODCywCzN5b27n0G+uwSkj7AXTH42x6CfbMC6ZU7",
   render_errors: [view: VkBots.ErrorView, accepts: ~w(html json)],
-  force_ssl: false,
   pubsub: [name: VkBots.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

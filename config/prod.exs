@@ -14,17 +14,9 @@ config :vk_bots, VkBots.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
-# ## SSL Support
-#
-# To get SSL working, you will need to add the `https` key
-# to the previous section and set your `:url` port to 443:
-#
-#     config :vk_bots, VkBots.Endpoint,
-#       ...
-#       url: [host: "example.com", port: 443],
-#       https: [port: 443,
-#               keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
-#               certfile: System.get_env("SOME_APP_SSL_CERT_PATH")]
+config :vk_bots, VkBots.Endpoint,
+  url: [host: "vk-broadcaster.tk", port: 443],
+  force_ssl: [hsts: false]
 #
 # Where those two env variables return an absolute path to
 # the key and cert in disk or a relative path inside priv,
