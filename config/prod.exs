@@ -13,10 +13,6 @@ config :vk_bots, VkBots.Repo,
   url: System.get_env("DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
-
-config :vk_bots, VkBots.Endpoint,
-  url: [host: "vk-broadcaster.tk", port: 443],
-  force_ssl: [hsts: false]
 #
 # Where those two env variables return an absolute path to
 # the key and cert in disk or a relative path inside priv,
